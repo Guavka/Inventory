@@ -31,7 +31,11 @@
 			"typeinfo": "cpp",
 			"future": "cpp",
 			"system_error": "cpp",
-			"xlocale": "cpp"
+			"xlocale": "cpp",
+			"ios": "cpp",
+			"xiosbase": "cpp",
+			"__config": "cpp",
+			"__nullptr": "cpp"
 		}
 	},
 	"extensions": {
