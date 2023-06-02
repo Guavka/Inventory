@@ -6,17 +6,14 @@
 
 #include "Inventory/InventorySystem/Items/BaseItemActor.h"
 
-#include "BaseEquipItemActor.generated.h"
+#include "BaseComsutableActor.generated.h"
 
 
 UCLASS(Blueprintable, BlueprintType)
-class ABaseEquipItemActor : public ABaseItemActor
+class ABaseComsutableActor : public ABaseItemActor
 {
 	GENERATED_BODY()
 
 public:
-	ABaseEquipItemActor();
-
-    UFUNCTION(BlueprintImplementableEvent)
-    void TryEquipItem();
+	ABaseComsutableActor();
 };

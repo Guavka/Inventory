@@ -1,6 +1,9 @@
 #include "InventoryComponent.h"
 
 #include "Inventory/Character/BaseCharacter.h"
+#include "Inventory/InventorySystem/Items/Comsutables/BaseComsutableActor.h"
+#include "Inventory/InventorySystem/Items/Equipment/BaseEquipItemActor.h"
+#include "Inventory/InventorySystem/Components/EquipmentComponent.h"
 
 UInventoryComponent::UInventoryComponent()
 {
@@ -145,11 +148,39 @@ void UInventoryComponent::UseItem(uint8 SlotIndex)
 
     auto actor = GetWorld()->SpawnActor<ABaseItemActor>(actorClass, OwnerCharacter->GetActorLocation(), OwnerCharacter->GetActorRotation(), parameters);
     actor->ItemInfo.Count = 1;
+    actor->StartUseItem();
+
+    if (Cast<ABaseComsutableActor>(actor))
+    {
+        ItemsArray[SlotIndex].Count -= 1;
+
+        if (ItemsArray[SlotIndex].Count == 0)
+        {
+            RemoveStack(SlotIndex);
+        }
+
+        OnInventaryUpdated.Broadcast();
+        return;
+    }
+
+    if (auto equipment = Cast<ABaseEquipItemActor>(actor))
+    {
+        auto component = OwnerCharacter->GetComponentByClass(UEquipmentComponent::StaticClass());
+        if (UEquipmentComponent *equipmentComp = Cast<UEquipmentComponent>(component))
+        {
+            equipmentComp->EquipItem(equipment);
+        }
+        return;
+    }
 }
 
 bool UInventoryComponent::TryTakeItems(FItemRequestStackData ItemData)
 {
     auto localItemData = ItemsDataTable->FindRow<FItemData>(ItemData.ItemRowName, "");
+
+    if (localItemData == NULL)
+        return false;
+
     uint8 localNeededCount = ItemData.Count;
     uint8 localCount = 0;
 

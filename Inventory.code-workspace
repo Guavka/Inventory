@@ -35,7 +35,10 @@
 			"ios": "cpp",
 			"xiosbase": "cpp",
 			"__config": "cpp",
-			"__nullptr": "cpp"
+			"__nullptr": "cpp",
+			"filesystem": "cpp",
+			"valarray": "cpp",
+			"tuple": "cpp"
 		}
 	},
 	"extensions": {

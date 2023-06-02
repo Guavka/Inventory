@@ -3,8 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
-#include "UObject/NameTypes.h"
 
 #include "Inventory/InventorySystem/BaseInteractActor.h"
 #include "Inventory/Character/BaseCharacter.h"
@@ -26,4 +24,7 @@ public:
 	FItemRequestStackData ItemInfo;
 
 	void Interact_Implementation(ABaseCharacter *Interactor) override;
+
+	UFUNCTION(BlueprintImplementableEvent)
+    void StartUseItem();
 };

@@ -19,17 +19,27 @@ class UEquipmentComponent : public UActorComponent
 
 public:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Default")
+    FName HeadSocket;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Default")
     class AHeadEquipItemActor *HeadActor;
 
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Default")
+    FName BodySocket;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Default")
     class ABodyEquipItemActor *BodyActor;
 
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Default")
+    FName LegsSocket;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Default")
     class ALegsEquipItemActor *LegsActor;
 
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Default")
+    FName LeftSocket;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Default")
     class ALeftEquipItemActor *LeftHandActor;
 
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Default")
+    FName RightSocket;
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Default")
     class ARightEquipItemActor *RightHandActor;
 
@@ -39,9 +49,13 @@ public:
     UFUNCTION(BlueprintCallable)
     void EquipItem(ABaseEquipItemActor *item);
 
-    UFUNCTION(BlueprintCallable)
-    void UnEquipItem(ABaseEquipItemActor *item);
-
 protected:
+
+    UFUNCTION(BlueprintCallable,BlueprintImplementableEvent)
+    void AttachActor(ABaseEquipItemActor *item, FName socket);
+
+    template <typename To>
+    void ToggleEquipment(To *equipmentItem, ABaseEquipItemActor *item, FName socket);
+
     virtual void BeginPlay();
 };

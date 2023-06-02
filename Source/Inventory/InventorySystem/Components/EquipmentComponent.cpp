@@ -1,5 +1,6 @@
 #include "EquipmentComponent.h"
 #include "Inventory/Character/BaseCharacter.h"
+#include "Engine/EngineTypes.h"
 
 void UEquipmentComponent::BeginPlay()
 {
@@ -8,66 +9,45 @@ void UEquipmentComponent::BeginPlay()
 
 void UEquipmentComponent::EquipItem(ABaseEquipItemActor *item)
 {
-    if (auto head = Cast<AHeadEquipItemActor>(item))
+    /*ToggleEquipment<AHeadEquipItemActor>(HeadActor, item, HeadSocket);
+    ToggleEquipment<ABodyEquipItemActor>(BodyActor, item, BodySocket);
+    ToggleEquipment<ALegsEquipItemActor>(LegsActor, item, LegsSocket);
+    ToggleEquipment<ALeftEquipItemActor>(LeftHandActor, item, LeftSocket);
+    ToggleEquipment<ARightEquipItemActor>(RightHandActor, item, RightSocket);
+    */
+   if (auto castedItem = Cast<AHeadEquipItemActor>(item))
     {
-        HeadActor = head;
-        return;
-    }
+        if (HeadActor == nullptr)
+        {
+            HeadActor = castedItem;
+            AttachActor(HeadActor, HeadSocket);
+            return;
+        }
 
-    if (auto body = Cast<ABodyEquipItemActor>(item))
-    {
-        BodyActor = body;
-        return;
-    }
-
-    if (auto legs = Cast<ALegsEquipItemActor>(item))
-    {
-        LegsActor = legs;
-        return;
-    }
-
-    if (auto left = Cast<ALeftEquipItemActor>(item))
-    {
-        LeftHandActor = left;
-        return;
-    }
-
-    if (auto right = Cast<ARightEquipItemActor>(item))
-    {
-        RightHandActor = right;
-        return;
+        if (item->GetClass() == HeadActor->GetClass())
+        {
+            HeadActor->Destroy();
+            item->Destroy();
+        }
     }
 }
 
-void UEquipmentComponent::UnEquipItem(ABaseEquipItemActor *item)
+template <typename To>
+void UEquipmentComponent::ToggleEquipment(To *equipmentItem, ABaseEquipItemActor *item, FName socket)
 {
-    if (auto head = Cast<AHeadEquipItemActor>(item))
+    if (auto castedItem = Cast<To>(item))
     {
-        HeadActor = nullptr;
-        return;
-    }
+        if (equipmentItem == nullptr)
+        {
+            equipmentItem = castedItem;
+            AttachActor(equipmentItem, socket);
+            return;
+        }
 
-    if (auto body = Cast<ABodyEquipItemActor>(item))
-    {
-        BodyActor = nullptr;
-        return;
-    }
-
-    if (auto legs = Cast<ALegsEquipItemActor>(item))
-    {
-        LegsActor = nullptr;
-        return;
-    }
-
-    if (auto left = Cast<ALeftEquipItemActor>(item))
-    {
-        LeftHandActor = nullptr;
-        return;
-    }
-
-    if (auto right = Cast<ARightEquipItemActor>(item))
-    {
-        RightHandActor = nullptr;
-        return;
+        if (item->GetClass() == equipmentItem->GetClass())
+        {
+            equipmentItem->Destroy();
+            item->Destroy();
+        }
     }
 }
