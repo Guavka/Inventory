@@ -15,21 +15,25 @@ void UEquipmentComponent::EquipItem(ABaseEquipItemActor *item)
     ToggleEquipment<ALeftEquipItemActor>(LeftHandActor, item, LeftSocket);
     ToggleEquipment<ARightEquipItemActor>(RightHandActor, item, RightSocket);
     */
-   if (auto castedItem = Cast<AHeadEquipItemActor>(item))
+    if (auto castedItem = Cast<AHeadEquipItemActor>(item))
     {
-        if (HeadActor == nullptr)
+        if (HeadActor != NULL)
         {
-            HeadActor = castedItem;
-            AttachActor(HeadActor, HeadSocket);
-            return;
+            if (castedItem->GetClass() == HeadActor->GetClass())
+            {
+                castedItem->Destroy();
+                HeadActor->Destroy();
+                HeadActor = NULL;
+                return;
+            }
+            HeadActor->Destroy();
+            HeadActor = NULL;
         }
 
-        if (item->GetClass() == HeadActor->GetClass())
-        {
-            HeadActor->Destroy();
-            item->Destroy();
-        }
+        HeadActor = castedItem;
+        AttachActor(HeadActor, HeadSocket);
     }
+    // TODO: Fix template function and spawn object
 }
 
 template <typename To>
