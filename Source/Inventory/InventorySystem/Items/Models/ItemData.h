@@ -17,22 +17,22 @@ struct FItemData : public FTableRowBase
 {
 	GENERATED_BODY()
 public:
-	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, meta = (DisplayName = "Name", MakeStructureDefaultValue = "Item"))
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (DisplayName = "Name", MakeStructureDefaultValue = "Item"))
 	FString Name;
 
-	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, meta = (DisplayName = "Description"))
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (DisplayName = "Description"))
 	FString Description;
 
-	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, meta = (DisplayName = "Icon", MakeStructureDefaultValue = "None"))
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (DisplayName = "Icon", MakeStructureDefaultValue = "None"))
 	TObjectPtr<UTexture2D> Icon;
 
-	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, meta = (DisplayName = "IsStackable", MakeStructureDefaultValue = "False"))
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (DisplayName = "IsStackable", MakeStructureDefaultValue = "False"))
 	bool IsStackable;
 
-	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, meta = (DisplayName = "MaxStackSize", MakeStructureDefaultValue = "1"))
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (DisplayName = "MaxStackSize", MakeStructureDefaultValue = "1"))
 	uint8 MaxStackSize;
 
-	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, meta = (DisplayName = "ActorClass", MakeStructureDefaultValue = "None"))
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (DisplayName = "ActorClass", MakeStructureDefaultValue = "None"))
 	TSubclassOf<ABaseItemActor> ActorClass;
 
 	FItemData()

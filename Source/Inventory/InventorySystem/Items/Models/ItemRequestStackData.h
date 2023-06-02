@@ -15,15 +15,21 @@ struct FItemRequestStackData
 {
 	GENERATED_BODY()
 public:
-	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, meta = (DisplayName = "ItemRowName", MakeStructureDefaultValue = "None"))
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (DisplayName = "ItemRowName", MakeStructureDefaultValue = "None"))
 	FName ItemRowName;
 
-	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, meta = (DisplayName = "Count", MakeStructureDefaultValue = "1"))
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (DisplayName = "Count", MakeStructureDefaultValue = "1"))
 	uint8 Count;
 
 	FItemRequestStackData()
 	{
 		ItemRowName = FName(TEXT("Name"));
 		Count = 0;
+	}
+
+	FItemRequestStackData(FName name, uint8 count)
+	{
+		ItemRowName = name;
+		Count = count;
 	}
 };

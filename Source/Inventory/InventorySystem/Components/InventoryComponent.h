@@ -19,7 +19,7 @@ public:
     UInventoryComponent();
 
     UFUNCTION(BlueprintCallable)
-    bool AddItem(FItemStackData NewItem);
+    bool TryAddItem(FItemRequestStackData ItemInfo);
 
     UFUNCTION(BlueprintCallable)
     void ThrowItem(uint8 SlotIndex);
@@ -60,6 +60,9 @@ protected:
 
     UFUNCTION(BlueprintCallable)
     void RemoveStack(uint8 SlotIndex);
+
+    UFUNCTION(BlueprintCallable)
+    bool AddItem(FItemStackData NewItem);
 
     int HasPartialStack(FItemStackData NewItem);
 };

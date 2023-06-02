@@ -4,7 +4,6 @@
 
 UInventoryComponent::UInventoryComponent()
 {
-    
 }
 
 void UInventoryComponent::BeginPlay()
@@ -15,12 +14,15 @@ void UInventoryComponent::BeginPlay()
 
     for (uint8 i = 0; i < DefaultItemsArray.Num(); ++i)
     {
-        FName LocalRowName = DefaultItemsArray[i].ItemRowName;
-        FItemData *OutRow = ItemsDataTable->FindRow<FItemData>(LocalRowName, "");
-
-        FItemStackData newItem = FItemStackData(OutRow, DefaultItemsArray[i].Count);
-        AddItem(newItem);
+        TryAddItem(DefaultItemsArray[i]);
     }
+}
+
+bool UInventoryComponent::TryAddItem(FItemRequestStackData ItemInfo)
+{
+    auto item = ItemsDataTable->FindRow<FItemData>(ItemInfo.ItemRowName, "");
+
+    return AddItem(FItemStackData(item, ItemInfo.Count));
 }
 
 bool UInventoryComponent::CreateStack(FItemStackData NewItem)
@@ -39,7 +41,9 @@ bool UInventoryComponent::CreateStack(FItemStackData NewItem)
     }
 
     if (index == -1)
+    {
         return false;
+    }
 
     if (NewItem.Count > newItemData.MaxStackSize)
     {
@@ -55,14 +59,15 @@ bool UInventoryComponent::CreateStack(FItemStackData NewItem)
 
 bool UInventoryComponent::AddToStack(FItemStackData NewItem, uint8 SlotIndex)
 {
-    auto stackSlot = ItemsArray[SlotIndex];
-    auto currentStackCount = stackSlot.Count;
-    auto newCount = currentStackCount + NewItem.Count;
-    if (newCount > stackSlot.Count)
-    {
-        ItemsArray[SlotIndex].Count = stackSlot.ItemData.MaxStackSize;
+    auto stackSlotCount = ItemsArray[SlotIndex].Count;
+    auto stackSlotData = ItemsArray[SlotIndex].ItemData;
+    auto newCount = stackSlotCount + NewItem.Count;
 
-        newCount = NewItem.Count - (stackSlot.ItemData.MaxStackSize - currentStackCount);
+    if (newCount > stackSlotData.MaxStackSize)
+    {
+        ItemsArray[SlotIndex].Count = stackSlotData.MaxStackSize;
+
+        newCount = NewItem.Count - (stackSlotData.MaxStackSize - stackSlotCount);
         return AddItem(FItemStackData(NewItem.ItemData, newCount));
     }
     ItemsArray[SlotIndex] = FItemStackData(NewItem.ItemData, newCount);
@@ -125,7 +130,7 @@ void UInventoryComponent::ThrowItem(uint8 SlotIndex)
     auto rotation = OwnerCharacter->SpawnPoint->GetComponentRotation();
 
     auto actor = GetWorld()->SpawnActor<ABaseItemActor>(actorClass, location, rotation);
-    actor->Count = ItemsArray[SlotIndex].Count;
+    actor->ItemInfo.Count = ItemsArray[SlotIndex].Count;
 
     RemoveStack(SlotIndex);
 }
@@ -139,7 +144,7 @@ void UInventoryComponent::UseItem(uint8 SlotIndex)
     parameters.Owner = OwnerCharacter;
 
     auto actor = GetWorld()->SpawnActor<ABaseItemActor>(actorClass, OwnerCharacter->GetActorLocation(), OwnerCharacter->GetActorRotation(), parameters);
-    actor->Count = 1;
+    actor->ItemInfo.Count = 1;
 }
 
 bool UInventoryComponent::TryTakeItems(FItemRequestStackData ItemData)

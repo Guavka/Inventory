@@ -15,19 +15,19 @@ struct FItemUIData
 {
 	GENERATED_BODY()
 public:
-	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, meta = (DisplayName = "Name", MakeStructureDefaultValue = "Item"))
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (DisplayName = "Name", MakeStructureDefaultValue = "Item"))
 	FString Name;
 
-	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, meta = (DisplayName = "Description"))
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (DisplayName = "Description"))
 	FString Description;
 
-	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, meta = (DisplayName = "Icon", MakeStructureDefaultValue = "None"))
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (DisplayName = "Icon", MakeStructureDefaultValue = "None"))
 	TObjectPtr<UTexture2D> Icon;
 
-	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, meta = (DisplayName = "StackSize", MakeStructureDefaultValue = "1"))
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (DisplayName = "StackSize", MakeStructureDefaultValue = "1"))
 	uint8 StackSize;
 
-	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, meta = (DisplayName = "Count", MakeStructureDefaultValue = "1"))
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (DisplayName = "Count", MakeStructureDefaultValue = "1"))
 	uint8 Count;
 
 	FItemUIData()

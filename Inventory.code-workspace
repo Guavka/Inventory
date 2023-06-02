@@ -10,7 +10,29 @@
 		}
 	],
 	"settings": {
-		"typescript.tsc.autoDetect": "off"
+		"typescript.tsc.autoDetect": "off",
+		"files.associations": {
+			"*.ipp": "cpp",
+			"__bit_reference": "cpp",
+			"bitset": "cpp",
+			"chrono": "cpp",
+			"hash_map": "cpp",
+			"map": "cpp",
+			"set": "cpp",
+			"unordered_map": "cpp",
+			"unordered_set": "cpp",
+			"algorithm": "cpp",
+			"iterator": "cpp",
+			"xhash": "cpp",
+			"xmemory": "cpp",
+			"xtree": "cpp",
+			"xutility": "cpp",
+			"typeindex": "cpp",
+			"typeinfo": "cpp",
+			"future": "cpp",
+			"system_error": "cpp",
+			"xlocale": "cpp"
+		}
 	},
 	"extensions": {
 		"recommendations": [

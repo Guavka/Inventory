@@ -17,10 +17,10 @@ struct FItemStackData
 {
 	GENERATED_BODY()
 public:
-	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, meta=(DisplayName="ItemRowName", MakeStructureDefaultValue="None"))
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(DisplayName="ItemRowName", MakeStructureDefaultValue="None"))
 	struct FItemData ItemData;
 
-	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, meta=(DisplayName="Count", MakeStructureDefaultValue="1"))
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta=(DisplayName="Count", MakeStructureDefaultValue="1"))
 	uint8 Count;
 
 	FItemStackData()

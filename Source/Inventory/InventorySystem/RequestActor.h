@@ -11,19 +11,22 @@
 
 #include "Inventory/InventorySystem/Items/Models/ItemRequestStackData.h"
 
-#include "BaseItemActor.generated.h"
+#include "RequestActor.generated.h"
 
 
 UCLASS(Blueprintable, BlueprintType)
-class ABaseItemActor : public ABaseInteractActor
+class ARequestActor : public ABaseInteractActor
 {
 	GENERATED_BODY()
 
 public:
-	ABaseItemActor();
+	ARequestActor();
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Default")
-	FItemRequestStackData ItemInfo;
+	FItemRequestStackData RequestItem;
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void InteractResult(bool Result);
 
 	void Interact_Implementation(ABaseCharacter *Interactor) override;
 };
