@@ -1,5 +1,4 @@
 #include "BaseItemActor.h"
-#include "UObject/ConstructorHelpers.h"
 #include "Inventory/InventorySystem/Items/Models/ItemData.h"
 #include "Inventory/InventorySystem/Items/Models/ItemStackData.h"
 #include "Inventory/InventorySystem/Components/InventoryComponent.h"
@@ -7,9 +6,6 @@
 ABaseItemActor::ABaseItemActor()
 {
     Count = 1;
-
-    static ConstructorHelpers::FObjectFinder<UDataTable> ItemsDataTable(TEXT("/Game/InventoryCPP/ItemsDataTable"));
-    DataTable = ItemsDataTable.Object;
 }
 
 void ABaseItemActor::Interact_Implementation(ABaseCharacter *Interactor)

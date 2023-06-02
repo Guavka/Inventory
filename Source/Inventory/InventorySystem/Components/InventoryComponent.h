@@ -45,9 +45,9 @@ public:
     DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnInventaryUpdated);
     UPROPERTY(BlueprintAssignable, EditDefaultsOnly, Category = "Default")
     FOnInventaryUpdated OnInventaryUpdated;
-    
 
 protected:
+    UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = "Default")
     class UDataTable *ItemsDataTable;
 
     virtual void BeginPlay();

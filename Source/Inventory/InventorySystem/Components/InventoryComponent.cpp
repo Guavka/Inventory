@@ -1,12 +1,10 @@
 #include "InventoryComponent.h"
 
 #include "Inventory/Character/BaseCharacter.h"
-#include "UObject/ConstructorHelpers.h"
 
 UInventoryComponent::UInventoryComponent()
 {
-    static ConstructorHelpers::FObjectFinder<UDataTable> ItemsDataTableObject(TEXT("/Game/InventoryCPP/ItemsDataTable"));
-    ItemsDataTable = ItemsDataTableObject.Object;
+    
 }
 
 void UInventoryComponent::BeginPlay()

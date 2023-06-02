@@ -29,5 +29,6 @@ public:
 	void Interact_Implementation(ABaseCharacter *Interactor) override;
 
 protected:
+	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = "Default")
 	class UDataTable* DataTable;
 };
