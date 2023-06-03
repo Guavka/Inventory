@@ -49,13 +49,14 @@ public:
     UFUNCTION(BlueprintCallable)
     void EquipItem(ABaseEquipItemActor *item);
 
-protected:
+    UFUNCTION(BlueprintCallable)
+    void UnEquipItem(ABaseEquipItemActor *item);
 
-    UFUNCTION(BlueprintCallable,BlueprintImplementableEvent)
+protected:
+    UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
     void AttachActor(ABaseEquipItemActor *item, FName socket);
 
-    template <typename To>
-    void ToggleEquipment(To *equipmentItem, ABaseEquipItemActor *item, FName socket);
+    void ToggleEquipment(ABaseEquipItemActor *equipmentItem, ABaseEquipItemActor *item, FName socket);
 
     virtual void BeginPlay();
 };

@@ -136,6 +136,16 @@ void UInventoryComponent::ThrowItem(uint8 SlotIndex)
     actor->ItemInfo.Count = ItemsArray[SlotIndex].Count;
 
     RemoveStack(SlotIndex);
+
+    if (auto equipment = Cast<ABaseEquipItemActor>(actor))
+    {
+        auto component = OwnerCharacter->GetComponentByClass(UEquipmentComponent::StaticClass());
+        if (UEquipmentComponent *equipmentComp = Cast<UEquipmentComponent>(component))
+        {
+            equipmentComp->UnEquipItem(equipment);
+        }
+        return;
+    }
 }
 
 void UInventoryComponent::UseItem(uint8 SlotIndex)
